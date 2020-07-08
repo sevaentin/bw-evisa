@@ -1,0 +1,97 @@
+.bd-placeholder-img {
+       font-size: 1.125rem;
+       text-anchor: middle;
+       -webkit-user-select: none;
+       -moz-user-select: none;
+       -ms-user-select: none;
+       user-select: none;
+     }
+
+     @media (min-width: 768px) {
+       .bd-placeholder-img-lg {
+         font-size: 3.5rem;
+       }
+     }
+
+     .bw-blue{color: #ABCAE9;}
+     .navbar-dark .navbar-brand{
+       color: #ABCAE9;
+     }
+     .navbar-white .navbar-brand{
+       color: #000;
+     }
+     .navbar-dark .navbar-nav .active>.nav-link{
+        color: #ABCAE9;
+     }
+     .navbar-dark .navbar-nav .nav-link{
+        color: #ABCAE9;
+     }
+     .navbar-white .navbar-nav .active>.nav-link{
+        color: #000;
+     }
+     .navbar-white .navbar-nav .nav-link{
+        color: #000;
+     }
+     .bw-bg{
+       background-image: url('images/h5-slide-2.jpg');
+       min-height:600px;
+     }
+   .purple {
+    background-color: #9c27b0!important;
+    border-color: #9c27b0!important;
+}
+.bg-light{
+  background-color: transparent!important;
+  margin-bottom: 40px;
+}
+.green {
+    background-color: #4caf50 !important;
+    border-color: #4caf50 !important;
+}
+.red {
+    background-color: #ff5252 !important;
+    border-color: #ff5252 !important;
+}
+.cyan {
+    background-color: #00bcd4!important;
+    border-color: #00bcd4!important;
+}
+ .botswana{
+   background-color: #ABCAE9!important;
+   border-color: #ABCAE9!important;
+   color:#fff!important;
+ }
+.box{
+  margin-top: 60px;
+  color: #ABCAE9;
+}
+.wrapper{
+  padding: 30px;
+}
+.half{
+  width:50%;
+}
+.top-small{
+  margin-top: 20px;
+}
+.bottom-small{
+  margin-bottom: 20px;
+}
+.bottom-medium{
+  margin-bottom: 40px;
+}
+.bottom-large{
+  margin-bottom: 60px;
+}
+.right{
+  float: right;
+}
+.v-application--wrap{
+  min-height: 50vh!important;
+}
+.bottom{
+  width: 100%;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
