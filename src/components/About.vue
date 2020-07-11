@@ -35,6 +35,15 @@
         @change="$v.checkbox.$touch()"
         @blur="$v.checkbox.$touch()"
       ></v-checkbox>
+      <v-autocomplete
+        v-model="model.martialstatus"
+        :items="martialstatuses"
+        :filter="customFilter"
+        item-text="name"
+        item-value="id"
+        required
+        label="Martial Status"
+      ></v-autocomplete>
 
       <v-btn class="mr-4" @click="submit">submit</v-btn>
       <v-btn @click="clear">clear</v-btn>
@@ -62,6 +71,8 @@ export default {
     },
 
   data: () => ({
+    martialstatuses: [],
+    model:{},
     items: ["Foo", "Bar", "Fizz", "Buzz"],
     states: [
       { name: 'Florida', abbr: 'FL', id: 1 },
@@ -71,6 +82,10 @@ export default {
       { name: 'New York', abbr: 'NY', id: 5 },
     ],
   }),
+
+  mounted() {
+     this.getMartialStatuses()
+ },
 
   computed: {
       checkboxErrors () {
@@ -98,6 +113,44 @@ export default {
         !this.$v.email.email && errors.push('Must be valid e-mail')
         !this.$v.email.required && errors.push('E-mail is required')
         return errors
+      },
+    },
+
+    methods: {
+      async getMartialStatuses() {
+         try {
+           const response = await fetch('https://localhost:44372/api/dictionary/martialStatuses')
+           const data = await response.json()
+           this.martialstatuses = data
+           console.log(this.martialstatuses);
+         } catch (error) {
+           console.error(error)
+         }
+       },
+      customFilter (item, queryText) {
+        const textOne = item.name.toLowerCase()
+        const textTwo = item.code.toLowerCase()
+        const searchText = queryText.toLowerCase()
+
+        return textOne.indexOf(searchText) > -1 ||
+          textTwo.indexOf(searchText) > -1
+      },
+      async save () {
+        this.$refs.observer.validate()
+        try {
+             const response = await fetch('https://localhost:44372/api/application/start', {
+               method: 'POST',
+               body: JSON.stringify(this.model),
+               headers: { 'Content-type': 'application/json; charset=UTF-8' },
+             })
+             const data = await response.json()
+             this.result = data
+             this.$store.dispatch('saveAppNum', this.result.appNum);
+             console.log(this.result.appNum);
+             this.formSaved = true
+           } catch (error) {
+             console.error(error)
+           }
       },
     },
     

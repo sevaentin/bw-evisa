@@ -95,3 +95,30 @@
   right: 0;
   bottom: 0;
 }
+.app-info{
+  color:#fff;
+  margin-left: 10px;
+}
+.error--text {
+    color: #ff5252 !important;
+    caret-color: #ff5252 !important;
+}
+.v-card__text h3{
+  color:#ABCAE9;
+}
+.v-input--selection-controls__input {
+    margin-right: 8px;
+}
+.v-application .primary--text {
+    color: #ABCAE9 !important;
+    caret-color: #ABCAE9 !important;
+}
+.v-application{
+  width: 100%;
+}
+.v-card__text{
+  padding: 16px 32px!important;
+}
+.v-tab{
+  justify-content: left!important;
+}

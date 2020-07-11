@@ -1,4 +1,5 @@
 <template>
+
   <main role="main" class="bw-bg">
     <div class="container">
         <nav class="navbar fixed-bottom navbar-light bg-light">
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Home',
   props: {

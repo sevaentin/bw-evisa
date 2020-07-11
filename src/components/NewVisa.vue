@@ -15,7 +15,7 @@
             <h2 v-else>Application ID</h2>
             <v-divider></v-divider>
              <v-app v-if="!formSaved" id="inspire">
-               <ValidationObserver ref="observer">
+               <ValidationObserver ref="observer"  v-slot="{ invalid }">
                 <form>
                   <ValidationProvider v-slot="{ errors }" name="email" rules="required|email">
                     <v-text-field
@@ -35,56 +35,66 @@
                         required
                       ></v-text-field>
                    </ValidationProvider>
-                  <v-autocomplete
-                    v-model="model.country"
-                    :items="countries"
-                    :filter="customFilter"
-                    item-text="name"
-                    item-value="id"
-                    label="Passport Issue Country"
-                  ></v-autocomplete>
 
-                  <v-autocomplete
-                    v-model="model.question"
-                    :items="questions"
-                    :filter="customFilter"
-                    item-text="name"
-                    item-value="id"
-                    label="Security Question"
-                    required
-                  ></v-autocomplete>
+                  <ValidationProvider v-slot="{ errors }" name="country" rules="required">
+                    <v-autocomplete
+                      v-model="model.country"
+                      :items="countries"
+                      :filter="customFilter"
+                      item-text="name"
+                      item-value="id"
+                      :error-messages="errors"
+                      required
+                      label="Passport Issue Country"
+                    ></v-autocomplete>
+                  </ValidationProvider>
 
-                  <v-text-field
-                    v-model="model.securityAnswer "
-                    :counter="10"
-                    label="Security Answer "
-                    required
+                  <ValidationProvider v-slot="{ errors }" name="question" rules="required">
+                    <v-autocomplete
+                      v-model="model.question"
+                      :items="questions"
+                      :filter="customFilter"
+                      item-text="name"
+                      item-value="id"
+                      :error-messages="errors"
+                      label="Security Question"
+                      required
+                    ></v-autocomplete>
+                </ValidationProvider>
 
-                  ></v-text-field>
+                  <ValidationProvider v-slot="{ errors }" name="securityAnswer" rules="required">
+                    <v-text-field
+                      v-model="model.securityAnswer "
+                      :counter="10"
+                      label="Security Answer "
+                      :error-messages="errors"
+                      required
+                    ></v-text-field>
+                </ValidationProvider>
+
                   <div class="top-small right">
-                   <v-btn small  color="botswana" @click="save">Start New Application</v-btn>
+                   <v-btn small  color="botswana" :disabled="invalid" @click="save">Start New Application</v-btn>
                </div>
 
               </form>
               </ValidationObserver>
               </v-app>
               <div v-else>
-                <v-text-field
-                   v-model="result.description"
-                   label="Your Application ID is"
-                   disabled
-                 ></v-text-field>
-                 <v-text-field
-                    v-model="result.date"
-                    label="Date"
-                    disabled
-                  ></v-text-field>
+                 <div class="form-row">
+                   <div class="form-group col-md-12">
+                     <label for="inputEmail4">Your Application ID is</label>
+                     <input type="text" class="form-control" disabled  v-model="result.appNum">
+                   </div>
+                   <div class="form-group col-md-12">
+                     <label for="inputEmail4">Date</label>
+                     <input type="text" class="form-control" disabled   v-model="result.date">
+                   </div>
+                 </div>
+
                   <div class="bottom bottom-large">
                     <div class="container-md">
-                      <v-btn  x-middle class="right" color="botswana" dark>Proceed to next step</v-btn>
+                      <v-btn to="/personalinfo"  x-middle class="right" color="botswana" dark>Proceed to next step</v-btn>
                     </div>
-
-
                   </div>
               </div>
           </div>
@@ -173,6 +183,8 @@ export default {
             })
             const data = await response.json()
             this.result = data
+            this.$store.dispatch('saveAppNum', this.result.appNum);
+            console.log(this.result.appNum);
             this.formSaved = true
           } catch (error) {
             console.error(error)
